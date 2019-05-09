@@ -2,35 +2,38 @@
 
 Matlab求解哈密顿量本征值（包括两组分，三组分和拟合）
 
+==============================
 
-### Markdown
+%parameters
+% Gamma=1*pi; Epsilon=-1.8; Delta=0;  Omega=7;
+Gamma=1.1*pi; Epsilon=-1.4 ; Delta=5;  Omega=6.1;
+n=2^18;
+xmax =100*pi;
+dx =2*xmax/n;
+x =(-xmax:dx:xmax-dx)';
+kx=[0:n/2-1 -n/2:-1]*pi/xmax;
+kx=kx';
+Ek=[];
+for k=min(kx):pi/xmax:max(kx)
+     %spin1/2
+      Mat=[0.5*k.^2+Gamma*k+0.5*Delta,0.5*Omega;0.5*Omega,0.5*k.^2-Gamma*k-0.5*Delta];      
+     % spin1
+     %Mat=[0.5*(k+2*Gamma).^2+Epsilon+Delta,Omega,0;Omega,0.5*k.^2,Omega;0,Omega,0.5*(k-2*Gamma).^2+Epsilon-Delta];
+     Ene=eig(Mat);
+     % drawnow
+     % plot(kx,Ene(1:1),'b.')
+     % hold on
+     
+     Ek=[Ek,Ene(1:1)];
+end
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+% hold on
+% k=-10:0.1:10;
+% period_n=2; %
+% Ek=0.5*(k+period_n*pi).^2.*(k<-period_n*pi)+(-cos(k)+1).*(k>=-period_n*pi & k<=period_n*pi)+0.5*(k-period_n*pi).^2.*(k>period_n*pi)-2.95;
+% plot(k,Ek,'r.')
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/littlesujin/littlesujin.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+  ====================================
+  
+  
